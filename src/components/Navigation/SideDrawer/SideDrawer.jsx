@@ -3,7 +3,9 @@ import classes from './SideDrawer.css';
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
-import Aux from '../../../hoc/Auxiliary';
+import Aux from '../../../hoc/Auxiliary/Auxiliary';
+import PropTypes from 'prop-types';
+
 const sideDrawer = props => {
   let attachedClasses = [classes.SideDrawer, classes.Close];
   if (props.open) {
@@ -23,6 +25,11 @@ const sideDrawer = props => {
       </div>
     </Aux>
   );
+};
+
+sideDrawer.propTypes = {
+  open: PropTypes.bool,
+  closed: PropTypes.func
 };
 
 export default sideDrawer;
