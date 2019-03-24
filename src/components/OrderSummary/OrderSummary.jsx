@@ -14,18 +14,18 @@ class OrderSummary extends Component {
         return (
           <li key={igKey}>
             <span style={{ textTransform: 'capitalize' }}>{igKey}</span>:{' '}
-            {this.props.ingredients[igKey]}
+            {this.props.ingredients[ igKey ]}
           </li>
         );
       }
     );
     return (
-      <Aux>
+      <div style={{ width: '80%' }}>
         <h3>Your Order</h3>
         <p>A delicious with the following ingredients:</p>
         <ul>{ingredientsSummary}</ul>
         <p>
-          <strong>Total price: {this.props.price}</strong>
+          <strong>Total price: {this.props.price.toFixed(2)}</strong>
         </p>
         <p>Continue to checkout?</p>
         <Button btnType="Danger" clicked={this.props.purchaseCanceled}>
@@ -34,7 +34,7 @@ class OrderSummary extends Component {
         <Button btnType="Success" clicked={this.props.purchaseContinued}>
           CONTINUE
         </Button>
-      </Aux>
+      </div>
     );
   }
 }
