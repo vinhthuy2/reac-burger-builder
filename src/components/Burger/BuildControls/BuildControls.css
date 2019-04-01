@@ -6,20 +6,7 @@
     align-items: center;
     box-shadow: 0 2px 1px #ccc;
     margin: auto;
-    padding: 10px 0
-}
-
-.ResetButton {
-    display: block;
-    font: inherit;
-    padding: 5px;
-    margin: 0 5px;
-    width: 80px;
-    border: 1px solid #000;
-    background-color: #000;
-    color: white;
-    cursor: pointer;
-    outline: none;
+    padding: 10px 0;
 }
 
 .OrderButton {
@@ -34,8 +21,7 @@
     box-shadow: 2px 2px 2px #966909;
 }
 
-.OrderButton:hover,
-.OrderButton:active {
+.OrderButton:hover, .OrderButton:active {
     background-color: #A0DB41;
     border: 1px solid #966909;
     color: #966909;
@@ -56,11 +42,9 @@
     0% {
         transform: scale(1);
     }
-
     60% {
         transform: scale(1.1);
     }
-
     100% {
         transform: scale(1);
     }

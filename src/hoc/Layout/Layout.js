@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Aux from '../Auxiliary/Auxiliary';
+
+import Aux from '../_Aux/_Aux';
 import classes from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
@@ -13,7 +14,7 @@ class Layout extends Component {
     this.setState({ showSideDrawer: false });
   };
 
-  sideDrawerTriggerHandler = () => {
+  sideDrawerToggleHandler = () => {
     this.setState(prevState => {
       return { showSideDrawer: !prevState.showSideDrawer };
     });
@@ -22,10 +23,10 @@ class Layout extends Component {
   render() {
     return (
       <Aux>
-        <Toolbar triggered={this.sideDrawerTriggerHandler} />
+        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
         <SideDrawer
-          closed={this.sideDrawerClosedHandler}
           open={this.state.showSideDrawer}
+          closed={this.sideDrawerClosedHandler}
         />
         <main className={classes.Content}>{this.props.children}</main>
       </Aux>
