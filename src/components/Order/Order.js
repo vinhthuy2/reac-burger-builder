@@ -9,14 +9,23 @@ const order = props => {
 
   const ingOutput = ingredients.map(ig => {
     return (
-      <span>
-        {ig.name}: {ig.amount}
+      <span
+        key={ig.name}
+        style={{
+          textTransform: 'capitalize',
+          display: 'inline-block',
+          margin: '0 8px',
+          border: '1px solid #ccc',
+          padding: '5px'
+        }}
+      >
+        {ig.name} ({ig.amount})
       </span>
     );
   });
   return (
     <div className={classes.Order}>
-      {ingOutput}
+      Ingredients: {ingOutput}
       <p>
         Price: <strong>USD {props.price.toFixed(2)}</strong>
       </p>
