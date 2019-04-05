@@ -13,7 +13,12 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Your Name'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       street: {
         elementType: 'input',
@@ -21,7 +26,12 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Street'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       zipCode: {
         elementType: 'input',
@@ -29,7 +39,14 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Postal code'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5
+        },
+        valid: false,
+        touched: false
       },
       country: {
         elementType: 'input',
@@ -37,7 +54,12 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Your Country'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       mail: {
         elementType: 'input',
@@ -45,7 +67,12 @@ class ContactData extends Component {
           type: 'email',
           placeholder: 'Your email'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       deliveryMethod: {
         elementType: 'select',
@@ -55,10 +82,13 @@ class ContactData extends Component {
             { value: 'cheapest', displayValue: 'Cheapest' }
           ]
         },
-        value: ''
+        validation: {},
+        value: 'cheapest',
+        valid: true
       }
     },
-    loading: false
+    loading: false,
+    formIsValid: false
   };
 
   orderHandler = event => {
@@ -87,6 +117,32 @@ class ContactData extends Component {
       });
   };
 
+  checkValidity(value, rules) {
+    let errorMessages = [];
+    if (rules.required) {
+      if (value.trim() === '') {
+        errorMessages.push('This field is required!');
+      }
+    }
+
+    if (rules.minLength) {
+      if (value.length < rules.minLength) {
+        errorMessages.push(
+          'Input length should greater than or equal to ' + rules.minLength
+        );
+      }
+    }
+
+    if (rules.maxLength) {
+      if (value.length > rules.maxLength) {
+        errorMessages.push(
+          'Input length should less than than or equal to ' + rules.maxLength
+        );
+      }
+    }
+    return errorMessages;
+  }
+
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedOrderForm = {
       ...this.state.orderForm
@@ -97,9 +153,22 @@ class ContactData extends Component {
     };
 
     updatedFormElement.value = event.target.value;
+
+    const errorMessages = this.checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+    updatedFormElement.valid = errorMessages.length === 0;
+    updatedFormElement.touched = true;
+    updatedFormElement.errorMessages = errorMessages;
+
     updatedOrderForm[inputIdentifier] = updatedFormElement;
 
-    this.setState({ orderForm: updatedOrderForm });
+    let formIsValid = true;
+    for (let inIdentifiers in updatedOrderForm) {
+      formIsValid = formIsValid && updatedOrderForm[inIdentifiers].valid;
+    }
+    this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
   };
 
   render() {
@@ -121,10 +190,18 @@ class ContactData extends Component {
               value={fEl.config.value}
               key={fEl.id}
               changed={event => this.inputChangedHandler(event, fEl.id)}
+              invalid={!fEl.config.valid}
+              shouldValidate={fEl.config.validation}
+              touched={fEl.config.touched}
+              errorMessages={fEl.config.errorMessages}
             />
           );
         })}
-        <Button btnType="Success" clicked={this.orderHandler}>
+        <Button
+          btnType="Success"
+          disabled={!this.state.formIsValid}
+          clicked={this.orderHandler}
+        >
           ORDER
         </Button>
       </form>
