@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Button from '../../../components/UI/Button/Button';
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -102,7 +104,7 @@ class ContactData extends Component {
     }
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price,
+      price: this.props.price.toFixed(2),
       orderData: formData
     };
     axios
@@ -200,8 +202,7 @@ class ContactData extends Component {
         <Button
           btnType="Success"
           disabled={!this.state.formIsValid}
-          clicked={this.orderHandler}
-        >
+          clicked={this.orderHandler}>
           ORDER
         </Button>
       </form>
@@ -218,4 +219,11 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients,
+    price: state.totalPrice
+  };
+};
+
+export default connect(mapStateToProps)(ContactData);
