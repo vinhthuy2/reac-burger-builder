@@ -21,7 +21,6 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     this.props.onInitIngredients();
   }
 
@@ -97,8 +96,7 @@ class BurgerBuilder extends Component {
       <Aux>
         <Modal
           show={this.state.purchasing}
-          modalClosed={this.purchaseCancelHandler}
-        >
+          modalClosed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
         {burger}
