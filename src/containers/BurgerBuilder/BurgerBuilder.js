@@ -40,8 +40,6 @@ class BurgerBuilder extends Component {
     if (this.props.isAuthenticated) {
       this.setState({ purchasing: true });
     } else {
-      console.log('signup');
-
       this.props.onSetAuthRedirectPath('/checkout');
       this.props.history.push('/auth');
     }
@@ -99,7 +97,8 @@ class BurgerBuilder extends Component {
       <Aux>
         <Modal
           show={this.state.purchasing}
-          modalClosed={this.purchaseCancelHandler}>
+          modalClosed={this.purchaseCancelHandler}
+        >
           {orderSummary}
         </Modal>
         {burger}
