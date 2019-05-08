@@ -33,7 +33,6 @@
     "jest": "23.6.0",
     "jest-pnp-resolver": "1.0.2",
     "jest-resolve": "23.6.0",
-    "jest-watch-typeahead": "^0.2.1",
     "mini-css-extract-plugin": "0.5.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
@@ -114,15 +113,14 @@
       "web.jsx",
       "jsx",
       "node"
-    ],
-    "watchPlugins": [
-      "H:\\works\\udemy-project\\react\\burgerBuilder\\burger-builder\\node_modules\\jest-watch-typeahead\\filename.js",
-      "H:\\works\\udemy-project\\react\\burgerBuilder\\burger-builder\\node_modules\\jest-watch-typeahead\\testname.js"
     ]
   },
   "babel": {
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "jest-watch-typeahead": "^0.2.1"
   }
 }
